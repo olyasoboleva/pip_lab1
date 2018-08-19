@@ -6,8 +6,8 @@
 <html>
 
 <head>
-	<title>Lab1</title>
-	<meta charset="UTF-8" />
+	<title>Lab1</title>  
+	<meta charset="utf-8">                                                
 	<style type="text/css">
 		body {
 			background: #444;
@@ -87,7 +87,12 @@
 		#footer {                                                                       
 			background: linear-gradient(to bottom, #ddd, #444);
 			color: #000;			 	
-		}    
+		}   
+		fieldset {                                                          
+			border: 1px solid black;
+			height: 100%; 
+			width: 80%;
+		}
 	</style>
 </head>
 
@@ -104,11 +109,12 @@
 				</table>
 			</th>
 		</tr>
-		<tr height="420">
+		<tr height="350" valign="bottom">
 			<td><img src="graph.png" height="300"></td>                              
-			<td>
-				<H2>Параметры</H2>
+			<td>    
 				<form class="from" action="check.php" method="get" id="formXYR" target="resultFrame" onkeydown="if(event.keyCode==13){return false;}">
+				  <fieldset>
+					<legend><H2>Параметры</H2></legend>
 					<label for "X"> X : </label>
 					<select size=1 width=100px name="X">
 						<option value="-3">-3</option>
@@ -145,12 +151,13 @@
               				</table> 
 					<span id="radiusSpan">Выберите ровно один радиус!</span><br>                                                                                                     
 					<input class="formFields" type="button" name="button" value="Проверить" onclick="validation()">
+				  </fieldset>
         			</form>
 			</td>
 		</tr>
-		<tr height="130" >                                                                          
-			<td colspan=2><iframe name="resultFrame" height="130" width="100%" id="resultFrame"
-				frameborder="no" scrolling="no" seamless style="display:inline" vspace="20"
+		<tr height="210">                                                                          
+			<td colspan=2  valign="top"><iframe name="resultFrame" height="210" width="100%" id="resultFrame"
+				frameborder="no" scrolling="no" seamless style="display:inline"
 				onload="resizeFrame();"></iframe> </td>   
 		</tr>
 		<tr height="80px" id="footer">
