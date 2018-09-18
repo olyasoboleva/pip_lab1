@@ -1,5 +1,7 @@
-<?php                                         
-	session_start();    
+<?php   
+	if (isset($_SESSION)){
+		session_start();
+	}
 ?>
 <!DOCTYPE html>
 
@@ -8,25 +10,22 @@
 <head>
 	<title>Lab1</title>  
 	<meta charset="utf-8"> 
-	<script src="script.js"></script>                                               
+	<script src="script.js"></script> 
+	<meta name="viewport" content="width=device-width, initial-scale=0.4">                                              
 	<style type="text/css">
 		body {                         
 			text-align: center;
 			font-family: monospace;
-			height: 100%;
-			background-color: #444;
-			background-attachment: fixed;
+			height: 100%;                            
 			background: url(spb.png) bottom repeat-x;
-			background-color: #444;
+			background-color: #444;      
 			background-attachment: fixed;
+			opacity: 0.95;
 		}
 		@keyframes city {
 			from { background-position: -500px 100%, 0 0;}
 			to { background-position: 339 100%; }
-		}
-		select {                  ;
-			width: 100px;
-		}
+		}                
 		table {
 			margin: auto;
 		}
@@ -48,21 +47,22 @@
 			border-bottom: 6px groove #888888;      		
 		}                                     
 		.formFields {
-			margin-top: 20px;
+			margin-top: 30px;
 		}
 		input[type="text"], select{
 			width:12em; 
 			border-radius:2px; 
 			border: solid 1px #ccc; 
-			padding:1.2%;
+			padding:1.4%;
 			box-shadow: inset 0 1px 1px rgba(0,0,0,0.2);
-		}
-		input[type="text"] + label {
-			margin: 20px;
-		}
+		}                 
 		select option:checked {
-			font-weight: bold;			
-		}                                               
+			font-weight: bold;
+			background: #f5f5ff;			
+		} 
+		select {
+			width: 170px;
+		}                                              
 		input[type="button"] { 
 			padding:4% 6%;  
 			border-radius:4px; 
@@ -84,10 +84,12 @@
 			outline: none;
 		}  
 		form table {
-			width: 60%;
+			width: 84%;
+			margin-bottom: 15px;  
 		}                  
 		form table td {
 			padding-bottom: 5%;
+			
 		}           
 		span {
 			display: inline;
@@ -113,9 +115,10 @@
 			color: #444;
 		}
 		#canvas {
-			background-color:#ffffff;
+			background-color:#fff;
 			border-radius: 20px;
 			width: 300;
+			border: 1px solid #999;
 		}
 	</style>
 </head>
@@ -126,7 +129,7 @@
 		        <th colspan="2">
 				<table width="100%">
 					<tr>
-						<td><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:GR:116320706676860::NO::GR_GR,GR_DATE:p3112,20.08.2018" target="_blank">Группа P3212</a></td>
+						<td><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:GR:116320706676860::NO::GR_GR,GR_DATE:p3212,01.09.2018" target="_blank">Группа P3212</a></td>
 						<td><a href="https://isu.ifmo.ru/pls/apex/f?p=2143:PERSON:116320706676860::NO:RP:PID:243887" target="_blank">Соболева О.А.</a></td>      
 						<td>Вариант 28211</td>
 					</tr>
@@ -135,7 +138,7 @@
 		</tr>
 		<tr height="350" valign="bottom">
 			<td><canvas id="canvas" height="300"></canvas></td>                              
-			<td>    
+			<td width="350px" height="350px">    
 				<form class="from" action="check.php" method="get" id="formXYR" target="resultFrame" onkeydown="if(event.keyCode==13){createRequest();return false;}">
 				  <fieldset>
 					<legend><H2>Параметры</H2></legend>
@@ -160,21 +163,20 @@
                                                                                          
 					<table>
         					<tr>
-                  					<td rowspan="2"> R : </td>
+                  					<td width="50px"> R : </td>
 	        					<td>
-							<input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch1" name="R" value=1>1</td>
+							<label><input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch1" name="R" value=1>1</label></td>
         						<td>
-							<input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch2" name="R" value=2>2</td>
+							<label><input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch2" name="R" value=2>2</label></td>
         						<td>
-							<input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch3" name="R" value=3>3</td>
+							<label><input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch3" name="R" value=3>3</label></td>
+							<td>
+							<label><input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch4" name="R" value=4 checked>4</label></td>
+        						<td>
+							<label><input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch5" name="R" value=5>5</label></td>
+	        				
         					</tr>
-        					<tr>              
-        						<td>
-							<input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch4" name="R" value=4 checked>4</td>
-        						<td></td><td>
-							<input onchange="clearWarnings();likeRadiobox(this);" class="checkbox" type="checkbox" id="ch5" name="R" value=5>5</td>
-	        				</tr>
-              				</table>                                                                                                                                                         
+              				</table> 
 					<input class="formFields" type="button" name="button" id="button" value="Проверить" disabled>
 				  </fieldset>
         			</form>

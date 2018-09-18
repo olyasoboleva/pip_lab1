@@ -1,18 +1,19 @@
 //<script type="text/javascript">
 	function validation(X,Y,R,rChecked){
+
 		var form = document.forms[0];
 		var success = true;
+		var YR = Y.replace(",",".");
 		if (rChecked!=1){                                                  
 			success = false;                                          
-		}
-		if (Y>=3 || Y<=-3 || Y.length>8 || isNaN(Y) || Y.length<1 || Y.charAt(0)=="." || (Y.charAt(0)=="-" && Y.charAt(1)==".") || Y.search(/^\s+$/) != -1){          
+		}             
+		if (YR>=3 || YR<=-3 || YR.length>8 || isNaN(YR) || YR.length<1 || YR.search(/^\s+$/) != -1){          
 		        document.getElementById('Y').style.border="1px solid red";                                                                    
 			success = false;
-			if (Y.length<1||(Y.search(/^\s+$/) != -1)) document.getElementById('warning').innerHTML = "Введите X!";
-			else if (Y.search(/^[0-9]+\,[0-9]+$/) != -1) document.getElementById('warning').innerHTML = "Дробная часть отделяется точкой!"; 
-			else if (Y>=3) document.getElementById('warning').innerHTML = "Значение меньше 3!";
-			else if (Y<=-3) document.getElementById('warning').innerHTML = "Значение больше -3!";
-			else if (isNaN(Y)||Y.charAt(0)=="."||(Y.charAt(0)=="-" && Y.charAt(1)==".")) document.getElementById('warning').innerHTML = "X - целое или дробное число!";
+			if (YR.length<1||(YR.search(/^\s+$/) != -1)) document.getElementById('warning').innerHTML = "Введите Y!";
+			else if (YR>=3) document.getElementById('warning').innerHTML = "Значение меньше 3!";
+			else if (YR<=-3) document.getElementById('warning').innerHTML = "Значение больше -3!";
+			else if (isNaN(YR)) document.getElementById('warning').innerHTML = "Y - целое или дробное число!";
 		} else {
 			document.getElementById('Y').style.border="1px solid green";
 		}
@@ -75,7 +76,7 @@
 		}
 		var X = form.X.value;
 		var Y = form.Y.value;
-		url += 'X='+X+'&Y='+Y+'&R='+R;
+		url += 'X='+X+'&Y='+Y+'&R='+R;                                           
 			
 		// определяем тип запроса
 		request.open('Get', url);    
@@ -84,7 +85,7 @@
 		
 		if (validation(X,Y,R,rChecked)){
 			// отправляем запрос
-			createPanel('canvas',X,Y,R);
+			createPanel('canvas',X,Y.replace(",","."),R);
 			request.send();
 		}
 	}
@@ -92,10 +93,11 @@
 	function scaling(){                                       
 		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
 			document.getElementById("content").style.width = "80%";
+			document.body.style.backgroundAttachment = "scroll";      
 		}
 	}
 	function createPanel(id,x,y,r){
-		var canvas = document.getElementById(id),      
+		var canvas = document.getElementById(id);	
 		ctx = canvas.getContext("2d");
 		size = canvas.width;                 
 		ctx.clearRect(0, 0, size, size);
